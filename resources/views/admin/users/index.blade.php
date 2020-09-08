@@ -35,8 +35,8 @@
                 <td>{{$user['name']}}</td>
                 <td>{{$user['email']}}</td>
                 <td>
-                  <a href="/users{{ $user['id']}}"><i class ="fa fa-eye"></i></a>
-                  <a href="/users{{ $user['id']}}/edit"><i class ="fa fa-edit"></i></a>
+                  <a href="/users/{{ $user['id'] }}"><i class ="fa fa-eye"></i></a>
+                  <a href="/users/{{ $user['id'] }}/edit"><i class ="fa fa-edit"></i></a>
                 </td>
                 <td></td>
                 <td></td>
