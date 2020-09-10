@@ -47,7 +47,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-     return(test);
+     return view('admin.users.show',['user'=>$user]);
     }
 
     /**
