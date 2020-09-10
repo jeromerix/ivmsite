@@ -4,7 +4,7 @@
 
 <h2>Edit User</h2>
 
-<form method="POST" action="/users/"{{ $user->id }}" enctype="multipart/form-data">
+<form method="POST" action="/users/{{ $user->id }}" enctype="multipart/form-data">
   @method('PATCH')
   @csrf()
 
@@ -26,7 +26,7 @@
   </div>
 
   <div class="form-group pt-2">
-    <input class="btn btn-primary" type-"submit" value="Submit">
+    <input class="btn btn-primary" type="submit" value="Submit">
   </div>
 </form>
 @endsection
