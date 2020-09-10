@@ -91,7 +91,6 @@ class UsersController extends Controller
           'name' => 'required|max:255',
           'email' => 'required|unique:users|email|max:255',
           'password'=>'between:8,255|confirmed',
-          'password_confirmation'=>'required'
         ]);
 
         $user->name = $request->name;
