@@ -334,7 +334,6 @@
 
         </div>
         <!-- /.container-fluid -->
-
       </div>
       <!-- End of Main Content -->
 
@@ -394,7 +393,7 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset ('js/demo/chart-area-demo.js') }}"></script>
   <script src="{{asset ('js/demo/chart-pie-demo.js') }}"></script>
-
+  @yield('js_user_page')
 </body>
 
 </html>
