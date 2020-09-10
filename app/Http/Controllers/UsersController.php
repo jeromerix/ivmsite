@@ -58,7 +58,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit',['user'=>$user]);
     }
 
     /**

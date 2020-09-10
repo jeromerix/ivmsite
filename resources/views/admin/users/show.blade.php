@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card-header">
       <h3>Name: {{$user->name}}<h3>
-      <h4>Name: {{$user->email}}<h4>
+      <h4>Email: {{$user->email}}<h4>
       <h4>comments: ...</h4>
     </div>
     <div class="card-body">
