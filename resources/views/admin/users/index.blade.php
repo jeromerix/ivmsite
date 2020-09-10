@@ -1,7 +1,16 @@
 @extends('admin.layouts.dashboard')
 
 @section('content')
-
+<div class="row py-lg-2">
+    <div class="col-md-6">
+        <h2>User List</h2>
+    </div>
+    @cannot('isManager')
+    <div class="col-md-5">
+        <a href="/users/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Create New User</a>
+    </div>
+    @endcannot
+</div>
 <div class= "card mb-3">
   <div class="card-header">
       Data Table Example</div>
@@ -67,7 +76,7 @@
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     @section('js_user_page')
     <script>
        $('#deleteModal').on('show.bs.modal', function (event) {

@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -37,7 +37,21 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //validate the fields
+        $request->validate([
+          'name' => 'required|max:255',
+          'email' => 'required|unique:users|email|max:255',
+          'password'=>'required|between:8,255|confirmed',
+          'password_confirmation'=>'required'
+        ]);
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect('/users');
     }
 
     /**
@@ -71,6 +85,15 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+      //validate the fields
+        $request->validate([
+          'name' => 'required|max:255',
+          'email' => 'required|unique:users|email|max:255',
+          'password'=>'between:8,255|confirmed',
+          'password_confirmation'=>'required'
+        ]);
+
         $user->name = $request->name;
         $user->email = $request->email;
 
