@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +27,16 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+      if($request->ajax()){
+        $roles = Role::where('id', $request->role_id)->first();
+        $permissions = $roles->permissions;
+
+        return $permissions;
+      }
+
+      $roles = Role::all();
+
+      return view('admin.users.create', ['roles' => $roles]);
     }
 
     /**
@@ -51,6 +61,17 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        if($request->role != null){
+          $user->roles()->attach($request->role);
+          $user->save();
+        }
+        if($request->permissions != null){
+          foreach ($request->permissions as $permission) {
+            $user->permissions()->attach($permission);
+            $user->save();
+    }
+  }
+
         return redirect('/users');
     }
 
@@ -73,8 +94,23 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit',['user'=>$user]);
-    }
+      $roles = Role::get();
+      $userRole = $user->roles->first();
+      if($userRole != null){
+        $rolePermissions = $userRole->allRolePermissions;
+      }else{
+        $rolePermissions = null;
+      }
+      $userPermissions = $user->permissions;
+
+      return view('admin.users.edit', [
+        'user'=>$user,
+        'roles'=>$roles,
+        'userRole'=>$userRole,
+        'rolePermissions'=>$rolePermissions,
+        'userPermissions'=>$userPermissions
+        ]);
+      }
 
     /**
      * Update the specified resource in storage.
@@ -101,6 +137,21 @@ class UsersController extends Controller
         }
         $user->save();
 
+        $user->roles()->detach();
+        $user->permissions()->detach();
+
+      if($request->role != null){
+        $user->roles()->attach($request->role);
+        $user->save();
+      }
+
+      if($request->permissions != null){
+        foreach ($request->permissions as $permission) {
+          $user->permissions()->attach($permission);
+          $user->save();
+          }
+        }
+
         return redirect('/users');
     }
 
@@ -112,6 +163,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+      $user->roles()->detach();
+      $user->permissions()->detach();
       $user->delete();
 
       return redirect('/users');

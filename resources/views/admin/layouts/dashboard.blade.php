@@ -17,7 +17,7 @@
 
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+@yield('css_role_page')
 </head>
 
 <body id="page-top">
@@ -61,9 +61,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <h6 class="collapse-header">Options:</h6>
+            <a class="collapse-item" href="buttons.html">Users</a>
+            <a class="collapse-item" href="cards.html">Roles</a>
           </div>
         </div>
       </li>
@@ -394,6 +394,7 @@
   <script src="{{ asset ('js/demo/chart-area-demo.js') }}"></script>
   <script src="{{asset ('js/demo/chart-pie-demo.js') }}"></script>
   @yield('js_user_page')
+  @yield('js_role_page')
 </body>
 
 </html>

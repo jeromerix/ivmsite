@@ -11,6 +11,8 @@
     </div>
     @endcannot
 </div>
+
+<!---DataTables----->
 <div class= "card mb-3">
   <div class="card-header">
       Data Table Example</div>
@@ -39,15 +41,40 @@
             </tfoot>
             <tbody>
               @foreach($users as $user)
-              <tr>
+              @if(!\Auth::user()->hasRole('admin') && $user->hasRole('admin')) @continue; @endif
+                <tr {{ Auth::user()->id == $user->id ? 'bgcolor=#ddd' : '' }}>
                 <td>{{$user['id']}}</td>
                 <td>{{$user['name']}}</td>
                 <td>{{$user['email']}}</td>
-                <td></td>
-                <td></td>
+                <td>
+                  @if ($user->roles->isNotEmpty())
+                            @foreach ($user->roles as $role)
+                                <span class="badge badge-secondary">
+                                    {{ $role->name }}
+                                </span>
+                            @endforeach
+                        @endif
+                </td>
+                <td>
+                  @if ($user->permissions->isNotEmpty())
+
+                           @foreach ($user->permissions as $permission)
+                               <span class="badge badge-secondary">
+                                   {{ $permission->name }}
+                               </span>
+                           @endforeach
+
+                       @endif
+                </td>
                 <td><a href="/users/{{ $user['id'] }}"><i class ="fa fa-eye"></i></a>
                 <a href="/users/{{ $user['id'] }}/edit"><i class ="fa fa-edit"></i></a>
-                <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$user['id']}}"><i class="fas fa-trash-alt"></i></a></td>
+                <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$user['id']}}"><i class="fas fa-trash-alt"></i></a>
+                {{-- @cannot('isManager') --}}
+                            {{-- @can('delete-user', $user) --}}
+                                <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$user['id']}}"><i class="fas fa-trash-alt"></i></a>
+                            {{-- @endcan --}}
+                        {{-- @endcannot --}}
+              </td>
               </tr>
               @endforeach
             </tbody>
