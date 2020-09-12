@@ -42,7 +42,7 @@
             <tbody>
               @foreach($users as $user)
               @if(!\Auth::user()->hasRole('admin') && $user->hasRole('admin')) @continue; @endif
-                <tr {{ Auth::user()->id == $user->id ? 'bgcolor=#ddd' : '' }}>
+                <tr {{ Auth::user()->id == $user->id ? 'bgcolor=#7fc526' : '' }}>
                 <td>{{$user['id']}}</td>
                 <td>{{$user['name']}}</td>
                 <td>{{$user['email']}}</td>
@@ -68,7 +68,6 @@
                 </td>
                 <td><a href="/users/{{ $user['id'] }}"><i class ="fa fa-eye"></i></a>
                 <a href="/users/{{ $user['id'] }}/edit"><i class ="fa fa-edit"></i></a>
-                <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$user['id']}}"><i class="fas fa-trash-alt"></i></a>
                 {{-- @cannot('isManager') --}}
                             {{-- @can('delete-user', $user) --}}
                                 <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$user['id']}}"><i class="fas fa-trash-alt"></i></a>
@@ -105,6 +104,7 @@
         </div>
       </div>
     @section('js_user_page')
+
     <script>
        $('#deleteModal').on('show.bs.modal', function (event) {
            var button = $(event.relatedTarget)

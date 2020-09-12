@@ -62,8 +62,8 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Options:</h6>
-            <a class="collapse-item" href="buttons.html">Users</a>
-            <a class="collapse-item" href="cards.html">Roles</a>
+            <a class="collapse-item" href="{{ url('/users') }}">Users</a>
+            <a class="collapse-item" href="{{ url('/roles') }}">Roles</a>
           </div>
         </div>
       </li>
@@ -341,7 +341,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Santexo invoice manager 2020</span>
+            <span>Copyright &copy; Santexo invoice manager</span>
           </div>
         </div>
       </footer>
@@ -388,11 +388,9 @@
   <script src="{{ asset ('js/sb-admin-2.min.js') }}"></script>
 
   <!-- Page level plugins -->
-  <script src="{{ asset ('vendor/chart.js/Chart.min.js') }}"></script>
+
 
   <!-- Page level custom scripts -->
-  <script src="{{ asset ('js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{asset ('js/demo/chart-pie-demo.js') }}"></script>
   @yield('js_user_page')
   @yield('js_role_page')
 </body>

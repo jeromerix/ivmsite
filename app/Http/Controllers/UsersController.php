@@ -25,7 +25,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
       if($request->ajax()){
         $roles = Role::where('id', $request->role_id)->first();
