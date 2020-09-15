@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\support\Facades\Gate;
 
 class PostsController extends Controller
 {
@@ -13,7 +15,13 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index');
+      if(!\Auth::user()->hasRole('admin') && !\Auth::user()->hasRole('manager') && !\Auth::user()->hasRole('content-editor') ){
+           $posts = Post::where('userId', \Auth::user()->id)->orderBy('id', 'desc')
+           ->get();
+       }else{
+           $posts = Post::orderBy('id', 'desc')->get();
+       }
+        return view('admin.posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -23,7 +31,9 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+      $this->authorize('create', Post::class);
+     //call the view admin.posts.create
+      return view('admin.posts.create');
     }
 
     /**
@@ -34,7 +44,35 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //get the image from the form
+      $fileNameWithTheExtension = request('pdf')->getClientOriginalName();
+
+      //get the name of the file
+      $fileName = pathinfo($fileNameWithTheExtension, PATHINFO_FILENAME);
+
+      //get extension of the file
+      $extension = request('pdf')->getClientOriginalExtension();
+
+      //create a new name for the file using the timestamp
+      $newFileName = $fileName . '_' . time() . '.' . $extension;
+
+      //save the iamge onto a public directory into a separately folder
+      $path = request('pdf')->storeAs('public/pdfs/posts_pdfs', $newFileName);
+
+        $user = auth()->user();
+        $post = new Post();
+
+        $post->OrderDate = request('OrderDate');
+        $post->pdf_link = $newFileName;
+        $post->DeliveryDate = request('DeliveryDate');
+        $post->CommentarySantexo = request('CommentarySantexo');
+
+
+
+
+        $post->save();
+
+        return redirect('/posts')->with('success', 'Post Created Successfully!');
     }
 
     /**
@@ -43,9 +81,18 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Post $post)
     {
-        //
+      if (\Request::ajax()){
+
+          $post = Post::find($request['task']['id']);
+          $post->published = $request['task']['checked'];
+          $post->save();
+
+          return $request;
+      }
+
+      return view('admin.posts.show', ['post'=>$post]);
     }
 
     /**
@@ -54,9 +101,15 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+      $this->authorize('edit', $post);
+
+     //get the post with the id $post->idate
+     $post = Post::find($post->id);
+
+     // return view
+     return view('admin/posts/edit', ['post' => $post]);
     }
 
     /**
@@ -66,9 +119,39 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+      //if (Gate::allows('isAdmin')) {
+    // The current user can edit settings
+
+      //get the pdf from the form
+        $fileNameWithTheExtension = request('pdf')->getClientOriginalName();
+
+        //get the name of the file
+        $fileName = pathinfo($fileNameWithTheExtension, PATHINFO_FILENAME);
+
+        //get extension of the file
+        $extension = request('pdf')->getClientOriginalExtension();
+
+        //create a new name for the file using the timestamp
+        $newFileName = $fileName . '_' . time() . '.' . $extension;
+
+        //save the iamge onto a public directory into a separately folder
+        $path = request('pdf')->storeAs('public/pdfs/posts_pdfs', $newFileName);
+
+        // dd($extension);
+
+        $post = Post::findOrFail($post->id);
+
+        $post->OrderDate = request('OrderDate');
+        $post->pdf_url = $newFileName;
+        $post->DeliveryDate = request('DeliveryDate');
+        $post->CommentarySantexo = request('CommentarySantexo');
+
+        $post->save();
+
+        return redirect('/posts');
     }
 
     /**
@@ -79,6 +162,22 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+      //find the post
+      $post = Post::find($request->post_id);
+
+      $this->authorize('delete', $post);
+
+      $oldpdf = public_path() . '/storage/pdfs/posts_pdfs/'. $post->pdf_url;
+
+      if(file_exists($oldpdf)){
+          //delete the image
+          unlink($oldpdf);
+      }
+
+      //delete the post
+      $post->delete();
+
+      //redirect to posts
+      return redirect('/posts');
+  }
     }
-}

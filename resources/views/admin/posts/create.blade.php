@@ -17,26 +17,26 @@
   <div class="form-group">
     <label for="example-date-input" class="col-2 col-form-label">OrderDate</label>
       <div class="col-10">
-        <input class="form-control" type="date" value="2020-09-13" id="example-date-input">
+        <input class="form-control" type="date" value="{{ old('OrderDate') }}" id="OrderDate" name="OrderDate">
       </div>
   </div>
     <div class="form-group">
       <div class="col-10">
       <label for="exampleInputFile">File input</label>
-        <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+        <input type="file" name ="pdf" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" id="pdf">
           <small id="fileHelp" class="form-text text-muted">max kbs</small>
         </div>
       </div>
       <div class="form-group">
         <label for="example-date-input" class="col-2 col-form-label">desired delivery date</label>
           <div class="col-10">
-            <input class="form-control" type="date" value="2020-09-13" id="example-date-input">
+            <input class="form-control" type="date" name="DeliveryDate" value="{{ old('DeliveryDate') }}" id="DeliveryDate">
           </div>
       </div>
       <div class="form-group">
         <div class="col-10">
   <label for="example-text-input" class="col-2 col-form-label">Comment Santexo:</label>
-    <input class="form-control" type="text" value="enter a comment (optional)" id="example-text-input">
+    <textarea rows="3" class="form-control" type="text"name="CommentarySantexo "id="CommentarySantexo">{{ old('CommentarySantexo')}}</textarea>
         </div>
       </div>
       <div class="form-group pt-2">

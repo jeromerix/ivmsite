@@ -19,8 +19,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 //controllers
-Route::resource('users', 'UsersController');
+Route::resource('users', 'UsersController')->middleware('role:isManager,isAdmin,content-editor');
 
-Route::resource('roles', 'RolesController');
+Route::resource('roles', 'RolesController')->middleware('can:isAdmin');
 
 Route::resource('posts', 'PostsController');

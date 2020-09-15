@@ -6,10 +6,12 @@
         <h2>Invoice preview</h2>
     </div>
     @cannot('isManager')
+      @can('create', App\Post::class)
     <div class="col-md-5">
         <a href="/posts/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Upload new invoice</a>
     </div>
-    @endcannot
+     @endcan
+  @endcannot
 </div>
 
 <!---DataTables----->
@@ -28,10 +30,9 @@
                 <th>in production</th>
                 <th>ready</th>
                 <th>send</th>
-                <th>commentary Santexo</th>
-                <th>commentary Supplier</th>
+                <th>comment Santexo</th>
+                <th>comment Supplier</th>
                 <th>Tools</th>
-              </tr>
             </thead>
             <tfoot>
               <tr>
@@ -42,26 +43,27 @@
                 <th>in production</th>
                 <th>ready</th>
                 <th>send</th>
-                <th>commentary Santexo</th>
-                <th>commentarySupplier</th>
+                <th>comment Santexo</th>
+                <th>comment Supplier</th>
                 <th>Tools</th>
               </tr>
             </tfoot>
             <tbody>
-
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              @foreach ($posts as $post)
+                <td>{{ $post['OrderDate'] }}</td>
+                <td><a src="{{ asset('/storage/pdfs/posts_pdfs/'.$post['pdf_link']) }}" alt="{{ $post['pdf_link'] }}">Order PDF</a></td>
+                <td>{{ $post['DeliveryDate'] }}</td>
+                <td>{{ $post['CommantarySantexo'] }}</td>
+                <td>in production</td>
+                <td>ready</td>
+                <td>send</td>
+                <td>commentary Santexo</td>
+                <td>commentary Santexo</td>
                 <td><a href="#"><i class ="fa fa-eye"></i></a>
                 <a href="#"><i class ="fa fa-edit"></i></a>
                 <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="#"><i class="fas fa-trash-alt"></i></a>
               </td>
+              @endforeach
               </tr>
 
             </tbody>
