@@ -169,8 +169,9 @@ class PostsController extends Controller
     public function destroy(Post $post, Request $request)
     {
       //find the pdf
-      $post = Post::find($request->post_id);
 
+      $post = Post::find($request->post_id);
+      
       //$this->authorize('delete', $post);
 
       $oldpdf = public_path() . '/storage/pdfs/posts_pdfs/'. $post->pdf_link;

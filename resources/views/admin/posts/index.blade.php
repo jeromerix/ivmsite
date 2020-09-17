@@ -49,7 +49,7 @@
             <tbody>
               @foreach ($posts as $post)
                 <td>{{ $post['OrderDate'] }}</td>
-                <td><a href="{{ ('/storage/pdfs/posts_pdfs/'.$post['pdf_link']) }}" alt="{{ $post['pdf_link'] }}"  target="_blank">Order PDF</a></td>
+                <td><a href="{{ asset('/storage/pdfs/posts_pdfs/'.$post['pdf_link']) }}" alt="{{ $post['pdf_link'] }}"  target="_blank">Order PDF</a></td>
                 <td>{{ $post['DeliveryDate'] }}</td>
                 <td>{{ $post['ConfirmedDelivery'] }}</td>
                 <td>{{ $post['InProduction'] }}</td>
@@ -83,7 +83,7 @@
               <form method="POST" action="/posts/">
                   @method('DELETE')
                   @csrf
-                  {{-- <input type="hidden" id="post_id" name="post_id" value=""> --}}
+                    <input type="hidden" id="post_id" name="post_id" value=""> 
                   <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Delete</a>
               </form>
             </div>
