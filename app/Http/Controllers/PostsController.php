@@ -65,7 +65,7 @@ class PostsController extends Controller
         $post->OrderDate = request('OrderDate');
         $post->pdf_link = $newFileName;
         $post->DeliveryDate = request('DeliveryDate');
-        $post['ConfirmedDelivery'] = date('Y-m-d H:i:s', strtotime($post['ConfirmedDelivery']));
+        $post['ConfirmedDelivery'] = date('Y-m-d', strtotime($post['ConfirmedDelivery']));
         $post['InProduction'] = request('not set', strtotime($post['InProduction']));
         $post['ready'] = request('not set', strtotime($post['ready']));
         $post['send'] = request('not set', strtotime($post['send']));
@@ -166,17 +166,17 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post, Request $request)
     {
-      //find the post
+      //find the pdf
       $post = Post::find($request->post_id);
 
-      $this->authorize('delete', $post);
+      //$this->authorize('delete', $post);
 
-      $oldpdf = public_path() . '/storage/pdfs/posts_pdfs/'. $post->pdf_url;
+      $oldpdf = public_path() . '/storage/pdfs/posts_pdfs/'. $post->pdf_link;
 
       if(file_exists($oldpdf)){
-          //delete the image
+          //delete the pdf
           unlink($oldpdf);
       }
 

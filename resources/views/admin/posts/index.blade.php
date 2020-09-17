@@ -58,8 +58,8 @@
                 <td>{{ $post['CommentarySantexo'] }}</td>
                 <td>{{ $post['CommentarySupplier'] }}</td>
                 <td>
-                <a href="#"><i class ="fa fa-edit"></i></a>
-                <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="#"><i class="fas fa-trash-alt"></i></a>
+                <a href="/posts/{{ $post['id'] }}"><i class ="fa fa-edit"></i></a>
+                <a href="#" data-toggle="modal" data-target="#deleteModal" data-postid="{{$post['id']}}"><i class="fas fa-trash-alt"></i></a>
               </td>
               </tr>
               @endforeach
@@ -77,10 +77,10 @@
                     <span aria-hidden="true">×</span>
                   </button>
               </div>
-              <div class="modal-body">Select "delete" If you realy want to delete this user.</div>
+              <div class="modal-body">Select "delete" If you realy want to delete this Order.</div>
               <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <form method="POST" action="">
+              <form method="POST" action="/posts/">
                   @method('DELETE')
                   @csrf
                   {{-- <input type="hidden" id="post_id" name="post_id" value=""> --}}
@@ -98,8 +98,8 @@
            var post_id = button.data('postid')
 
            var modal = $(this)
-           // modal.find('.modal-footer #user_id').val(user_id)
-           modal.find('form').attr('action','/post/' + post_id);
+           modal.find('.modal-footer #post_id').val(post_id);
+           modal.find('form').attr('action','/posts/' + post_id);
        })
    </script>
     @endsection

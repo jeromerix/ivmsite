@@ -38,7 +38,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
-
+        
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
       <a class="nav-link" href="{{ url('/') }}">
@@ -68,7 +68,7 @@
           </div>
         </div>
       </li>
-      
+
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
