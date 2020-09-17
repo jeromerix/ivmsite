@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Gate;
@@ -31,7 +32,6 @@ class PostsController extends Controller
      */
     public function create()
     {
-      $this->authorize('create', Post::class);
      //call the view admin.posts.create
       return view('admin.posts.create');
     }
@@ -65,7 +65,13 @@ class PostsController extends Controller
         $post->OrderDate = request('OrderDate');
         $post->pdf_link = $newFileName;
         $post->DeliveryDate = request('DeliveryDate');
+        $post['ConfirmedDelivery'] = date('Y-m-d H:i:s', strtotime($post['ConfirmedDelivery']));
+        $post['InProduction'] = request('not set', strtotime($post['InProduction']));
+        $post['ready'] = request('not set', strtotime($post['ready']));
+        $post['send'] = request('not set', strtotime($post['send']));
         $post->CommentarySantexo = request('CommentarySantexo');
+        $post['CommentarySupplier'] = request('none', strtotime($post['CommentarySupplier']));
+        $post->userId = Auth::user()->id;
 
 
 

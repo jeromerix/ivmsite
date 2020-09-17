@@ -36,7 +36,7 @@
       <div class="form-group">
         <div class="col-10">
   <label for="example-text-input" class="col-2 col-form-label">Comment Santexo:</label>
-    <textarea rows="3" class="form-control" type="text"name="CommentarySantexo "id="CommentarySantexo">{{ old('CommentarySantexo')}}</textarea>
+    <textarea rows="3" class="form-control" type="text"name="CommentarySantexo" id="CommentarySantexo">{{ old('CommentarySantexo')}}</textarea>
         </div>
       </div>
       <div class="form-group pt-2">

@@ -54,7 +54,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      @canany(['isAdmin','isManager'])
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-users"></i>
@@ -68,7 +68,7 @@
           </div>
         </div>
       </li>
-      @endcanany
+      
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">

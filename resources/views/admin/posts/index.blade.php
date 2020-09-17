@@ -5,13 +5,11 @@
     <div class="col-md-6">
         <h2>Invoice preview</h2>
     </div>
-    @cannot('isManager')
-      @can('create', App\Post::class)
+
     <div class="col-md-5">
         <a href="/posts/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Upload new invoice</a>
     </div>
-     @endcan
-  @endcannot
+
 </div>
 
 <!---DataTables----->
@@ -51,21 +49,20 @@
             <tbody>
               @foreach ($posts as $post)
                 <td>{{ $post['OrderDate'] }}</td>
-                <td><a src="{{ asset('/storage/pdfs/posts_pdfs/'.$post['pdf_link']) }}" alt="{{ $post['pdf_link'] }}">Order PDF</a></td>
+                <td><a href="{{ ('/storage/pdfs/posts_pdfs/'.$post['pdf_link']) }}" alt="{{ $post['pdf_link'] }}"  target="_blank">Order PDF</a></td>
                 <td>{{ $post['DeliveryDate'] }}</td>
-                <td>{{ $post['CommantarySantexo'] }}</td>
-                <td>in production</td>
-                <td>ready</td>
-                <td>send</td>
-                <td>commentary Santexo</td>
-                <td>commentary Santexo</td>
-                <td><a href="#"><i class ="fa fa-eye"></i></a>
+                <td>{{ $post['ConfirmedDelivery'] }}</td>
+                <td>{{ $post['InProduction'] }}</td>
+                <td>{{ $post['ready'] }}</td>
+                <td>{{ $post['send'] }}</td>
+                <td>{{ $post['CommentarySantexo'] }}</td>
+                <td>{{ $post['CommentarySupplier'] }}</td>
+                <td>
                 <a href="#"><i class ="fa fa-edit"></i></a>
                 <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="#"><i class="fas fa-trash-alt"></i></a>
               </td>
-              @endforeach
               </tr>
-
+              @endforeach
             </tbody>
           </table>
         </div>
