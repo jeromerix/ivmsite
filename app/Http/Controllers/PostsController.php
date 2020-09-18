@@ -111,7 +111,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-      $this->authorize('edit', $post);
+      //$this->authorize('edit', $post);
 
      //get the post with the id $post->idate
      $post = Post::find($post->id);

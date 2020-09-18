@@ -58,7 +58,7 @@
                 <td>{{ $post['CommentarySantexo'] }}</td>
                 <td>{{ $post['CommentarySupplier'] }}</td>
                 <td>
-                <a href="/posts/{{ $post['id'] }}"><i class ="fa fa-edit"></i></a>
+                <a href="/posts/{{ $post['id'] }}/edit"><i class ="fa fa-edit"></i></a>
                 <a href="#" data-toggle="modal" data-target="#deleteModal" data-postid="{{$post['id']}}"><i class="fas fa-trash-alt"></i></a>
               </td>
               </tr>
@@ -83,7 +83,7 @@
               <form method="POST" action="/posts/">
                   @method('DELETE')
                   @csrf
-                    <input type="hidden" id="post_id" name="post_id" value=""> 
+                    <input type="hidden" id="post_id" name="post_id" value="">
                   <a class="btn btn-primary" onclick="$(this).closest('form').submit();">Delete</a>
               </form>
             </div>
