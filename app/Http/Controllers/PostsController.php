@@ -65,13 +65,15 @@ class PostsController extends Controller
         $post->OrderDate = request('OrderDate');
         $post->pdf_link = $newFileName;
         $post->DeliveryDate = request('DeliveryDate');
-        $post['ConfirmedDelivery'] = date('Y-m-d', strtotime($post['ConfirmedDelivery']));
-        $post['InProduction'] = request('not set', strtotime($post['InProduction']));
-        $post['ready'] = request('not set', strtotime($post['ready']));
-        $post['send'] = request('not set', strtotime($post['send']));
+        $post->ConfirmedDelivery = date('Y-m-d H:i:s');
+        $post->InProduction = "not set";
+        $post->ready ="not set";
+        $post->send="not set" ;
         $post->CommentarySantexo = request('CommentarySantexo');
-        $post['CommentarySupplier'] = request('none', strtotime($post['CommentarySupplier']));
+        $post->CommentarySupplier = "none";
         $post->userId = Auth::user()->id;
+
+
 
 
 
@@ -171,7 +173,7 @@ class PostsController extends Controller
       //find the pdf
 
       $post = Post::find($request->post_id);
-      
+
       //$this->authorize('delete', $post);
 
       $oldpdf = public_path() . '/storage/pdfs/posts_pdfs/'. $post->pdf_link;
