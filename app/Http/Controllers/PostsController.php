@@ -44,6 +44,13 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+      $request->validate(
+           [
+             'OrderDate' => 'required|date',
+             'CommentarySantexo' => 'string|max:255',
+             'CommentarySupplier' => 'string|max:255',
+          ]);
+
       //get the image from the form
       $fileNameWithTheExtension = request('pdf')->getClientOriginalName();
 
@@ -126,6 +133,14 @@ class PostsController extends Controller
     public function update(Request $request, Post $post)
     {
         $this->authorize('update', $post);
+
+        $request->validate(
+             [
+               'OrderDate' => 'required|date',
+               'CommentarySantexo' => 'string|max:255',
+               'CommentarySupplier' => 'string|max:255',
+
+            ]);
       //if (Gate::allows('isAdmin')) {
     // The current user can edit settings
 
