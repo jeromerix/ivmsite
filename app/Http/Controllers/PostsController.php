@@ -144,6 +144,7 @@ class PostsController extends Controller
       //if (Gate::allows('isAdmin')) {
     // The current user can edit settings
 
+  if($request->hasFile('pdf')){
       //get the pdf from the form
         $fileNameWithTheExtension = request('pdf')->getClientOriginalName();
 
@@ -174,6 +175,24 @@ class PostsController extends Controller
         $post->CommentarySupplier = request ('CommentarySupplier');
 
         $post->save();
+      }
+      else{
+
+        $post = Post::findOrFail($post->id);
+
+        $post->OrderDate = request('OrderDate');
+        $post->DeliveryDate = request('DeliveryDate');
+        $post->ConfirmedDelivery = request('ConfirmedDelivery');
+        $post->InProduction = request('InProduction');
+        $post->ready = request('ready');
+        $post->send = request('send') ;
+        $post->CommentarySantexo = request('CommentarySantexo');
+        $post->CommentarySupplier = request ('CommentarySupplier');
+
+        $post->save();
+      }
+
+
 
         return redirect('/posts');
     }
