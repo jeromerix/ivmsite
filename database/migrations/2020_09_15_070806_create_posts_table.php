@@ -18,11 +18,11 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->date('OrderDate');
             $table->string('pdf_link');
-            $table->date('DeliveryDate');
-            $table->date('ConfirmedDelivery');
-            $table->text('InProduction');
-            $table->text('ready');
-            $table->text('send');
+            $table->date('DeliveryDate')->nullable()->default(null);
+            $table->date('ConfirmedDelivery')->nullable()->default(null);
+            $table->text('InProduction')->default('not set');
+            $table->text('ready')->default('not set');
+            $table->text('send')->default('not set');
             $table->string('CommentarySantexo',255);
             $table->string('CommentarySupplier',255);
             $table->integer('userId');

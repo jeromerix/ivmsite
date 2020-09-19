@@ -49,21 +49,23 @@
                     {{ csrf_field() }}
                 <td>
                   <div class="form-group">
-                    <input type="date" name="OrderDate" class="form-control" id="OrderDate" placeholder="{{ $post['OrderDate'] }}" value="{{ old('OrderDate') }}" required>
+                    <input type="date" name="OrderDate" class="form-control" id="OrderDate" value="{{ old('OrderDate', $post->OrderDate) }}" required>
                   </div>
                 </td>
-                <td>    <div class="form-group">
+                <td>
+                    <div class="form-group">
                         <input type="file" name ="pdf" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" id="pdf">
                           <small id="fileHelp" class="form-text text-muted">upload new</small>
-                      </div></td>
+                      </div>
+                    </td>
                 <td>
                   <div class="form-group">
-                        <input class="form-control" type="date" name="DeliveryDate" value="{{ old('DeliveryDate') }}" id="DeliveryDate">
+                        <input class="form-control" type="date" name="DeliveryDate" value="{{ old('DeliveryDate', $post->DeliveryDate) }}" id="DeliveryDate">
                   </div>
                 </td>
                 <td>
                   <div class="form-group">
-                        <input class="form-control" type="date" name="DeliveryDate" value="{{ old('DeliveryDate') }}" id="DeliveryDate">
+                        <input class="form-control" type="date" name="ConfirmedDelivery" value="{{ old('ConfirmedDelivery', $post->ConfirmedDelivery) }}" id="ConfirmedDelivery">
                   </div>
                 </td>
                 <td>
@@ -91,12 +93,12 @@
                 </td>
                 <td>
                   <div class="form-group">
-                <textarea rows="1" class="form-control" type="text"name="CommentarySantexo" id="CommentarySantexo"></textarea>
+                <textarea rows="1" class="form-control" type="text"name="CommentarySantexo" id="CommentarySantexo">{{ old('CommentarySantexo', $post->CommentarySantexo) }}</textarea>
                   </div>
                 </td>
                 <td>
                   <div class="form-group">
-                      <textarea rows="1" class="form-control" type="text"name="CommentarySantexo" id="CommentarySantexo">{{ old('CommentarySantexo')}}</textarea>
+                      <textarea rows="1" class="form-control" type="text"name="CommentarySupplier" id="CommentarySupplier">{{ old('CommentarySantexo', $post->CommentarySupplier) }}</textarea>
                   </div>
                 </td>
               </tr>
