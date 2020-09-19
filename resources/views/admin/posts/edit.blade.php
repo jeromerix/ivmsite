@@ -39,14 +39,15 @@
                 <th></th>
                 <th></th>
                 <th>
-                    <input class="btn btn-primary" type="submit" value="Update">
+                <form method="POST" action="/posts/{{ $post->id }}" enctype="multipart/form-data">
+                    @method('PATCH')
+                    {{ csrf_field() }}
+                  <input class="btn btn-primary" type="submit" value="Update">
               </th>
               </tr>
             </tfoot>
             <tbody>
                 <tr>
-                  <form method="POST" action="/posts" enctype="multipart/form-data">
-                    {{ csrf_field() }}
                 <td>
                   <div class="form-group">
                     <input type="date" name="OrderDate" class="form-control" id="OrderDate" value="{{ old('OrderDate', $post->OrderDate) }}" required>
@@ -70,25 +71,26 @@
                 </td>
                 <td>
                   <div class="form-group">
-                    <select class="custom-select" id="InProductionCategory">
-                        <option name="test4" value="test4">Not in production</option>
-                        <option name="test5" value="test5">in production</option>
+                    <select class="custom-select" id="InProduction" name="InProduction">
+                        <option name="Not in production" value="Not in production">Not in production</option>
+                        <option name="in production" value="in production">in production</option>
+                  </div>
+                    </select>
+
+                </td>
+                <td>
+                  <div class="form-group">
+                    <select class="custom-select" id="ready"  name="ready">
+                        <option name="No" value="No">No</option>
+                        <option name="Yes" value="Yes">Yes</option>
                     </select>
                   <div>
                 </td>
                 <td>
                   <div class="form-group">
-                    <select class="custom-select" id="Ready">
-                        <option name="test4" value="test4">No</option>
-                        <option name="test5" value="test5">Yes</option>
-                    </select>
-                  <div>
-                </td>
-                <td>
-                  <div class="form-group">
-                    <select class="custom-select" id="Ready">
-                        <option name="test4" value="test4">No</option>
-                        <option name="test5" value="test5">send</option>
+                    <select class="custom-select" id="send" name="send">
+                        <option name="No" value="No">No</option>
+                        <option name="send" value="send">send</option>
                     </select>
                 </td>
                 <td>
@@ -102,6 +104,7 @@
                   </div>
                 </td>
               </tr>
+            </form>
             </tbody>
           </table>
         </div>

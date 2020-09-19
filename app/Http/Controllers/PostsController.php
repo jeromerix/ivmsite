@@ -65,17 +65,13 @@ class PostsController extends Controller
         $post->OrderDate = request('OrderDate');
         $post->pdf_link = $newFileName;
         $post->DeliveryDate = request('DeliveryDate');
-        //$post->ConfirmedDelivery = date('Y-m-d H:i:s');
-        //$post->InProduction = "not set";
-        //$post->ready ="not set";
-        //$post->send="not set" ;
+        $post->ConfirmedDelivery = request('ConfirmedDelivery');
+        $post->InProduction = request('InProduction');
+        $post->ready = request ('ready');
+        $post->send= request('send');
         $post->CommentarySantexo = request('CommentarySantexo');
-        $post->CommentarySupplier = "none";
+        $post->CommentarySupplier = request ('CommentarySupplier');
         $post->userId = Auth::user()->id;
-
-
-
-
 
 
         $post->save();
@@ -153,12 +149,12 @@ class PostsController extends Controller
         $post = Post::findOrFail($post->id);
 
         $post->OrderDate = request('OrderDate');
-        $post->pdf_url = $newFileName;
+        $post->pdf_link = $newFileName;
         $post->DeliveryDate = request('DeliveryDate');
-        $post->ConfirmedDelivery = date('Y-m-d H:i:s');
+        $post->ConfirmedDelivery = request('ConfirmedDelivery');
         $post->InProduction = request('InProduction');
         $post->ready = request('ready');
-        $post->send= request('send') ;
+        $post->send = request('send') ;
         $post->CommentarySantexo = request('CommentarySantexo');
         $post->CommentarySupplier = request ('CommentarySupplier');
 
