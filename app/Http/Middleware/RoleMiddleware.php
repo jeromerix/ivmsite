@@ -15,12 +15,12 @@ class RoleMiddleware
      */
     public function handle($request, Closure $next,...$roles)
     {
-      foreach($roles as $role){
-        if (auth()->user()->hasRole($role)){
-          return $next($request);
+         foreach ($roles as $role) {
+             if(auth()->user()->hasRole($role)) {
+                 return $next($request);
+             }
+         }
 
-        }
-      }
-        abort(404);
-    }
-}
+         abort(404);
+     }
+ }

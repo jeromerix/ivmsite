@@ -100,7 +100,7 @@
                 </td>
                 <td>
                   <div class="form-group">
-                      <textarea rows="1" class="form-control" type="text"name="CommentarySupplier" id="CommentarySupplier">{{ old('CommentarySantexo', $post->CommentarySupplier) }}</textarea>
+                      <textarea rows="1" class="form-control" type="text"name="CommentarySupplier" id="CommentarySupplier">{{ old('CommentarySupplier', $post->CommentarySupplier) }}</textarea>
                   </div>
                 </td>
               </tr>

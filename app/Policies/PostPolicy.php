@@ -30,7 +30,12 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        //
+      if ($user->roles->contains('slug', 'supplier')) {
+        return true;
+    }elseif($user->permissions->contains('slug', 'view')){
+        return true;
+    }
+    return false;
     }
 
     /**
@@ -41,7 +46,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-      if ($user->roles->contains('slug', 'content-editor')) {
+      if ($user->roles->contains('slug', 'manager', 'admin')) {
         return true;
     }elseif($user->permissions->contains('slug', 'create')){
         return true;
@@ -58,7 +63,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-      if($user->roles->contains('slug', 'content-editor')){
+      if($user->roles->contains('slug', 'supplier')){
           return true;
       } elseif($user->permissions->contains('slug', 'edit')) {
           return true;
@@ -80,12 +85,11 @@ class PostPolicy
     {
       if($user->permissions->contains('slug', 'delete')) {
           return true;
-      } elseif ($user->roles->contains('slug', 'content-editor')) {
+      } elseif ($user->roles->contains('slug', 'manager','admin')) {
           return true;
       }
       return false;
     }
-
     /**
      * Determine whether the user can restore the model.
      *

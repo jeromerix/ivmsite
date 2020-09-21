@@ -5,11 +5,11 @@
     <div class="col-md-6">
         <h2>Invoice preview</h2>
     </div>
-
+      @canany(['isAdmin','isManager'])
     <div class="col-md-5">
         <a href="/posts/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Upload new invoice</a>
     </div>
-
+  @endcanany
 </div>
 
 <!---DataTables----->
@@ -59,7 +59,9 @@
                 <td>{{ $post['CommentarySupplier'] }}</td>
                 <td>
                 <a href="/posts/{{ $post['id'] }}/edit"><i class ="fa fa-edit"></i></a>
+                @canany(['isAdmin','isManager'])
                 <a href="#" data-toggle="modal" data-target="#deleteModal" data-postid="{{$post['id']}}"><i class="fas fa-trash-alt"></i></a>
+                @endcanany
               </td>
               </tr>
               @endforeach

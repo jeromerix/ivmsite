@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-      if(!\Auth::user()->hasRole('admin') && !\Auth::user()->hasRole('manager') && !\Auth::user()->hasRole('content-editor') ){
+      if(!\Auth::user()->hasRole('admin') && !\Auth::user()->hasRole('manager') && !\Auth::user()->hasRole('supplier') ){
            $posts = Post::where('userId', \Auth::user()->id)->orderBy('id', 'desc')
            ->get();
        }else{
@@ -32,6 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+      $this->authorize('create', Post::class);
      //call the view admin.posts.create
       return view('admin.posts.create');
     }
@@ -44,9 +45,11 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+
       $request->validate(
            [
              'OrderDate' => 'required|date',
+             'pdf' => 'required|',
              'CommentarySantexo' => 'string|max:255',
              'CommentarySupplier' => 'string|max:255',
           ]);
@@ -132,7 +135,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $this->authorize('update', $post);
+        //$this->authorize('update', $post);
 
         $request->validate(
              [
@@ -209,7 +212,7 @@ class PostsController extends Controller
 
       $post = Post::find($request->post_id);
 
-      //$this->authorize('delete', $post);
+      $this->authorize('delete', $post);
 
       $oldpdf = public_path() . '/storage/pdfs/posts_pdfs/'. $post->pdf_link;
 

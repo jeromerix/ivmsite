@@ -5,7 +5,7 @@
     <div class="col-md-6">
         <h2>User List</h2>
     </div>
-    @cannot('isManager')
+    @cannot('isSupplier')
     <div class="col-md-5">
         <a href="/users/create" class="btn btn-primary btn-lg float-md-right" role="button" aria-pressed="true">Create New User</a>
     </div>
